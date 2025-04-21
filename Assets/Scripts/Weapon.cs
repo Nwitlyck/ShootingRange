@@ -12,7 +12,7 @@ public class Weapon : MonoBehaviour
     public float shootingDelay = 2f;
 
     public int bulletsPerBurst = 3;
-    public int burstBulletsLedt;
+    public int burstBulletsLeft;
 
     public float spreadIntensity;
 
@@ -31,7 +31,7 @@ public class Weapon : MonoBehaviour
     public enum ShootingMode
     {
         Single,
-        Brust,
+        Burst,
         Auto
     }
 
@@ -40,7 +40,7 @@ public class Weapon : MonoBehaviour
     public void Awake()
     {
         readyToShoot = true;
-        burstBulletsLedt = bulletsPerBurst;
+        burstBulletsLeft = bulletsPerBurst;
         animator = GetComponent<Animator>();
         bulletsLeft = magazineSize;
     }
@@ -55,7 +55,7 @@ public class Weapon : MonoBehaviour
         {
             isShooting = Input.GetKey(KeyCode.Mouse0);
         }
-        else if (currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Brust)
+        else if (currentShootingMode == ShootingMode.Single || currentShootingMode == ShootingMode.Burst)
         {
             isShooting = Input.GetKeyDown(KeyCode.Mouse0);
         }
@@ -69,7 +69,7 @@ public class Weapon : MonoBehaviour
 
         if(readyToShoot && isShooting  && bulletsLeft > 0)
         {
-            burstBulletsLedt = bulletsPerBurst;
+            burstBulletsLeft = bulletsPerBurst;
             FireWeapon();
         }
 
@@ -103,6 +103,8 @@ public class Weapon : MonoBehaviour
         //Instantiate the bullet
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
 
+        bullet.tag = "Bullet";
+
         //Pointing the bullet to face the shooting direction
         bullet.transform.forward = shootingDirection;
 
@@ -120,9 +122,9 @@ public class Weapon : MonoBehaviour
         }
 
         //Burst mode
-        if(currentShootingMode == ShootingMode.Brust && burstBulletsLedt > 1)
+        if(currentShootingMode == ShootingMode.Burst && burstBulletsLeft > 1)
         {
-            burstBulletsLedt--;
+            burstBulletsLeft--;
             Invoke("FireWeapon", shootingDelay);
         }
     }
