@@ -11,7 +11,6 @@ public class Bullet : MonoBehaviour
             print("hit " + objectWeHit.gameObject.name + " !");
 
             CreateBulletImpactEffect(objectWeHit);
-
             Destroy(gameObject);
         }
 
