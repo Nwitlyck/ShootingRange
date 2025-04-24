@@ -131,6 +131,7 @@ public class Weapon : MonoBehaviour
             Invoke("FireWeapon", shootingDelay);
         }
 
+        Debug.Log(PlayerPrefs.GetInt("Points"));
         if(PlayerPrefs.GetInt("Points") == 10) wallLV1.SetActive(false);
         if(PlayerPrefs.GetInt("Points") == 20) wallLV2.SetActive(false);
     }
@@ -138,6 +139,7 @@ public class Weapon : MonoBehaviour
     private void Reload(){
 
         SoundManager.Instance.reloadingM1911.Play();
+        animator.SetTrigger("Reload");
         isReloding = true;
         Invoke("ReloadCompleted", reloadTime);
     }
