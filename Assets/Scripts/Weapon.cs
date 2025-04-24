@@ -28,6 +28,9 @@ public class Weapon : MonoBehaviour
     public float reloadTime;
     public bool isReloding;
 
+    public GameObject wallLV1;
+    public GameObject wallLV2;
+
     public enum ShootingMode
     {
         Single,
@@ -127,6 +130,9 @@ public class Weapon : MonoBehaviour
             burstBulletsLeft--;
             Invoke("FireWeapon", shootingDelay);
         }
+
+        if(PlayerPrefs.GetInt("Points") == 10) wallLV1.SetActive(false);
+        if(PlayerPrefs.GetInt("Points") == 20) wallLV2.SetActive(false);
     }
 
     private void Reload(){

@@ -11,6 +11,8 @@ public class Bullet : MonoBehaviour
             print("hit " + objectWeHit.gameObject.name + " !");
 
             CreateBulletImpactEffect(objectWeHit);
+            PlayerPrefs.SetInt("Points", PlayerPrefs.GetInt("Points") + 1);
+            PlayerPrefs.Save();
             Destroy(gameObject);
         }
 
